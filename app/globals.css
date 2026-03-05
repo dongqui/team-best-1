@@ -76,7 +76,8 @@ label {
 }
 
 input[type="text"],
-textarea {
+textarea,
+select {
   padding: 10px 12px;
   border: 1px solid #d1d5db;
   border-radius: 6px;
@@ -88,7 +89,8 @@ textarea {
 }
 
 input[type="text"]:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
   outline: 2px solid #2563eb;
   border-color: transparent;
 }

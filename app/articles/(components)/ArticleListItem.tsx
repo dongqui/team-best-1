@@ -7,9 +7,13 @@ type ArticleListItemProps = {
 
 export default function ArticleListItem({ article }: ArticleListItemProps) {
   return (
-    <>
-      {/* TODO: `/articles/${article.id}`로 이동하는 Link를 렌더링하고, 게시글 제목을 표시하세요. */}
-      {/* TODO: 게시글의 createdAt 날짜를 렌더링하세요. */}
-    </>
+    <div style={{ borderBottom: "1px solid #e5e7eb", padding: "16px 0" }}>
+      <Link href={`/articles/${article.id}`}>{article.title}</Link>
+      <div style={{ fontSize: "0.85rem", color: "#6b7280", marginTop: 4 }}>
+        <span>{article.author}</span>
+        <span style={{ margin: "0 8px" }}>·</span>
+        <time>{new Date(article.createdAt).toLocaleDateString("ko-KR")}</time>
+      </div>
+    </div>
   );
 }

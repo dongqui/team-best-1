@@ -1,26 +1,80 @@
 "use client";
 
 import { useState } from "react";
-import { Article } from "@/types/article";
+import { Article, ArticleCategory } from "@/types/article";
+import { CATEGORY_OPTIONS } from "@/app/articles/(constrnats)";
 
-type ArticleFormProps = {
-  onSubmit: (data: { title: string; content: string }) => void;
+type ArticleFormData = {
+  title: string;
+  content: string;
+  author: string;
+  category: ArticleCategory;
 };
 
-export default function ArticleForm({ onSubmit }: ArticleFormProps) {
+type ArticleFormProps = {
+  initialData?: Article;
+  onSubmit: (data: ArticleFormData) => void;
+};
+
+export default function ArticleForm({ initialData, onSubmit }: ArticleFormProps) {
+  const [title, setTitle] = useState(initialData?.title ?? "");
+  const [content, setContent] = useState(initialData?.content ?? "");
+  const [author, setAuthor] = useState(initialData?.author ?? "");
+  const [category, setCategory] = useState<ArticleCategory>(
+    initialData?.category ?? "technology"
+  );
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    // TODO: 현재 title과 content 값을 담아 onSubmit을 호출하세요.
+    onSubmit({ title, content, author, category });
   }
 
   return (
     <form onSubmit={handleSubmit}>
-      {/* TODO: "title" 입력을 위한 label과 input을 렌더링하세요. value를 title 상태에 연결하세요. */}
-      {/* TODO: "content" 입력을 위한 label과 textarea를 렌더링하세요. value를 content 상태에 연결하세요. */}
-      {/* TODO: "author" 입력을 위한 label과 input을 렌더링하세요. value를 author 상태에 연결하세요. */}
-      {/* TODO: "category" 입력을 위한 label과 select를 렌더링하세요. value를 category 상태에 연결하세요. */}
+      <label>
+        제목
+        <input
+          type="text"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+        />
+      </label>
 
-      {/* TODO: 제출(submit) 버튼을 렌더링하세요. */}
+      <label>
+        내용
+        <textarea
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          required
+        />
+      </label>
+
+      <label>
+        작성자
+        <input
+          type="text"
+          value={author}
+          onChange={(e) => setAuthor(e.target.value)}
+          required
+        />
+      </label>
+
+      <label>
+        카테고리
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value as ArticleCategory)}
+        >
+          {CATEGORY_OPTIONS.map((opt) => (
+            <option key={opt.value} value={opt.value}>
+              {opt.label}
+            </option>
+          ))}
+        </select>
+      </label>
+
+      <button type="submit">저장</button>
     </form>
   );
 }

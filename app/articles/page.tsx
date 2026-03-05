@@ -1,17 +1,35 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { Article } from "@/types/article";
+import { Article, ArticleCategory } from "@/types/article";
 import ArticleList from "@/app/articles/(components)/ArticleList";
+import ArticleListHeader from "@/app/articles/(components)/ArticleListHeader";
+import Pagination from "@/components/Pagination";
 import { getArticles } from "@/lib/api/articles";
 
 export default function ArticleListPage() {
+  const searchParams = useSearchParams();
   const [articles, setArticles] = useState<Article[]>([]);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const currentPage = Number(searchParams.get("page") ?? "1");
 
   useEffect(() => {
-    getArticles().then((data) => setArticles(data.articles));
-  }, []);
+    const query = {
+      keyword: searchParams.get("keyword") ?? undefined,
+      category: (searchParams.get("category") as ArticleCategory) || undefined,
+      orderBy: (searchParams.get("orderBy") as "createdAt" | "title") || undefined,
+      order: (searchParams.get("order") as "asc" | "desc") || undefined,
+      page: currentPage,
+    };
+
+    getArticles(query).then((data) => {
+      setArticles(data.articles);
+      setTotalPages(data.totalPages);
+    });
+  }, [searchParams]);
 
   return (
     <main>
@@ -39,7 +57,9 @@ export default function ArticleListPage() {
         </Link>
       </div>
 
+      <ArticleListHeader />
       <ArticleList articles={articles} />
+      <Pagination currentPage={currentPage} totalPages={totalPages} />
     </main>
   );
 }

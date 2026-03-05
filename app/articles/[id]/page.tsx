@@ -6,11 +6,13 @@ import Link from "next/link";
 import { Article } from "@/types/article";
 import { getArticle, deleteArticle } from "@/lib/api/articles";
 import { CATEGORY_OPTIONS } from "@/app/articles/(constrnats)";
+import Modal from "@/components/Modal";
 
 export default function ArticleDetailPage() {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const [article, setArticle] = useState<Article | null>(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
     getArticle(id).then((data) => setArticle(data));
@@ -55,7 +57,7 @@ export default function ArticleDetailPage() {
           >
             수정
           </Link>
-          <button type="button" onClick={handleDelete}>
+          <button type="button" onClick={() => setShowDeleteModal(true)}>
             삭제
           </button>
         </div>
@@ -85,6 +87,17 @@ export default function ArticleDetailPage() {
       </div>
 
       <p style={{ lineHeight: 1.8, whiteSpace: "pre-wrap" }}>{article.content}</p>
+
+      {showDeleteModal && (
+        <Modal
+          title="게시글을 삭제할까요?"
+          description="삭제한 게시글은 복구할 수 없습니다."
+          confirmLabel="삭제"
+          cancelLabel="취소"
+          onConfirm={handleDelete}
+          onCancel={() => setShowDeleteModal(false)}
+        />
+      )}
     </main>
   );
 }

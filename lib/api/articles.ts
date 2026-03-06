@@ -25,7 +25,7 @@ export const ARTICLE_API = "/api/articles";
 export async function getArticles(
   _query: GetArticlesQuery = {},
 ): Promise<ArticleListResponse> {
-  const res = await fetch(ARTICLE_API);
+  const res = await fetch(`http://localhost:3000/${ARTICLE_API}`);
   return res.json();
 
   // throw new Error("getArticles()가 아직 구현되지 않았습니다");

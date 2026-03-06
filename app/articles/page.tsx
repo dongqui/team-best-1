@@ -1,19 +1,14 @@
-"use client";
-
-import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Article } from "@/types/article";
 import ArticleList from "@/app/articles/(components)/ArticleList";
-// TODO: import { getArticles } from "@/lib/api/articles";
+import { getArticles } from "@/lib/api/articles";
 
-export default function ArticleListPage() {
-  const [articles, setArticles] = useState<Article[]>([]);
-
-  useEffect(() => {
-    // TODO: getArticles()를 호출하고, 반환된 결과로 articles 상태를 업데이트하세요.
-    // 예시:
-    //   getArticles().then((data) => setArticles(data));
-  }, []);
+export default async function ArticleListPage() {
+  const articlesList = await getArticles();
+  console.log("articles", articlesList);
+  // TODO: getArticles()를 호출하고, 반환된 결과로 articles 상태를 업데이트하세요.
+  // 예시:
+  //   getArticles().then((data) => setArticles(data));
 
   return (
     <main>

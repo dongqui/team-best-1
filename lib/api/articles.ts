@@ -23,9 +23,12 @@ export const ARTICLE_API = "/api/articles";
  *   pageSize  - 페이지당 항목 수 (기본값: 10)
  */
 export async function getArticles(
-  _query: GetArticlesQuery = {}
+  _query: GetArticlesQuery = {},
 ): Promise<ArticleListResponse> {
-  throw new Error("getArticles()가 아직 구현되지 않았습니다");
+  const res = await fetch(ARTICLE_API);
+  return res.json();
+
+  // throw new Error("getArticles()가 아직 구현되지 않았습니다");
 }
 
 /**
@@ -70,7 +73,7 @@ export async function updateArticle(
     content?: string;
     author?: string;
     category?: string;
-  }
+  },
 ): Promise<Article> {
   throw new Error("updateArticle()이 아직 구현되지 않았습니다");
 }

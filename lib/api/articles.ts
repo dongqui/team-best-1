@@ -25,12 +25,11 @@ export const ARTICLE_API = "/api/articles";
 export async function getArticles(
   _query: GetArticlesQuery = {}
 ): Promise<ArticleListResponse> {
-  
-  
-
+  const url = ARTICLE_API;
   const response = await fetch(url);
-
   const data: ArticleListResponse = await response.json();
+
+  return data;
 }
 
 /**

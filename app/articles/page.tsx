@@ -13,6 +13,7 @@ export default function ArticleListPage() {
     // TODO: getArticles()를 호출하고, 반환된 결과로 articles 상태를 업데이트하세요.
     // 예시:
     //   getArticles().then((data) => setArticles(data));
+    getArticles().then((data) => setArticles(data.articles));
   }, []);
 
   return (

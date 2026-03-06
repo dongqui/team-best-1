@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Article } from "@/types/article";
 import ArticleList from "@/app/articles/(components)/ArticleList";
 // TODO: import { getArticles } from "@/lib/api/articles";
+import {  } from "@/lib/api/articles";
 
 export default function ArticleListPage() {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -13,6 +14,7 @@ export default function ArticleListPage() {
     // TODO: getArticles()를 호출하고, 반환된 결과로 articles 상태를 업데이트하세요.
     // 예시:
     //   getArticles().then((data) => setArticles(data));
+    getArticles().then((data) => setArticles(data));
   }, []);
 
   return (

@@ -8,7 +8,7 @@ type ArticleListItemProps = {
 export default function ArticleListItem({ article }: ArticleListItemProps) {
   const { id, category, title, author, createdAt } = article;
   return (
-    <Link href={`/${id}`}>
+    <Link href={`/articles/${id}`}>
       <div>{category}</div>
       <div>{title}</div>
       <div>

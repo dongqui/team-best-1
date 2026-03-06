@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Article } from "@/types/article";
 import ArticleList from "@/app/articles/(components)/ArticleList";
+import { getArticles } from "@/lib/api/articles";
 // TODO: import { getArticles } from "@/lib/api/articles";
 
 export default function ArticleListPage() {
@@ -11,6 +12,11 @@ export default function ArticleListPage() {
 
   useEffect(() => {
     // TODO: getArticles()를 호출하고, 반환된 결과로 articles 상태를 업데이트하세요.
+    getArticles()
+      .then((data) => {
+        setArticles(data.articles || data);
+      })
+      .catch((err) => console.error("로딩 실패", err));
     // 예시:
     //   getArticles().then((data) => setArticles(data));
   }, []);
@@ -42,6 +48,7 @@ export default function ArticleListPage() {
       </div>
 
       {/* TODO: ArticleList 컴포넌트를 렌더링하고, articles 상태를 prop으로 전달하세요. */}
+      <ArticleList articles={articles} />
     </main>
   );
 }

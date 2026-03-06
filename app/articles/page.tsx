@@ -6,6 +6,7 @@ import { getArticles } from "@/lib/api/articles";
 export default async function ArticleListPage() {
   const articlesList = await getArticles();
   console.log("articles", articlesList);
+  const articles = articlesList.articles;
   // TODO: getArticles()를 호출하고, 반환된 결과로 articles 상태를 업데이트하세요.
   // 예시:
   //   getArticles().then((data) => setArticles(data));
@@ -36,7 +37,17 @@ export default async function ArticleListPage() {
         </Link>
       </div>
 
-      {/* TODO: ArticleList 컴포넌트를 렌더링하고, articles 상태를 prop으로 전달하세요. */}
+      {articles.map((item) => {
+        return (
+          <div key={item.id}>
+            <div>{item.title}</div>
+            <div>
+              {item.author} | {item.category}{" "}
+            </div>
+            <div>{item.createdAt}</div>
+          </div>
+        );
+      })}
     </main>
   );
 }

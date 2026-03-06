@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Article } from "@/types/article";
 import ArticleList from "@/app/articles/(components)/ArticleList";
-// TODO: import { getArticles } from "@/lib/api/articles";
+import { getArticles } from "@/lib/api/articles";
 
 export default function ArticleListPage() {
   const [articles, setArticles] = useState<Article[]>([]);
@@ -42,6 +42,7 @@ export default function ArticleListPage() {
       </div>
 
       {/* TODO: ArticleList 컴포넌트를 렌더링하고, articles 상태를 prop으로 전달하세요. */}
+      <ArticleList articles={articles} />
     </main>
   );
 }

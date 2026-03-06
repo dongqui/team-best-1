@@ -37,17 +37,7 @@ export default async function ArticleListPage() {
         </Link>
       </div>
 
-      {articles.map((item) => {
-        return (
-          <div key={item.id}>
-            <div>{item.title}</div>
-            <div>
-              {item.author} | {item.category}{" "}
-            </div>
-            <div>{item.createdAt}</div>
-          </div>
-        );
-      })}
+      <ArticleList articles={articles} />
     </main>
   );
 }

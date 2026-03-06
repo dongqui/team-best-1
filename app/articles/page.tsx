@@ -14,7 +14,9 @@ export default function ArticleListPage() {
     // TODO: getArticles()를 호출하고, 반환된 결과로 articles 상태를 업데이트하세요.
     // 예시:
     //   getArticles().then((data) => setArticles(data));
-    getArticles().then(() => setArticles());
+     getArticles().then((data) => {
+      setArticles(data.articles);
+    });
   }, []);
 
   return (
@@ -44,6 +46,7 @@ export default function ArticleListPage() {
       </div>
 
       {/* TODO: ArticleList 컴포넌트를 렌더링하고, articles 상태를 prop으로 전달하세요. */}
+      <ArticleList articles={articles} />
     </main>
   );
 }

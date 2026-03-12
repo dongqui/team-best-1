@@ -23,9 +23,11 @@ export const ARTICLE_API = "/api/articles";
  *   pageSize  - 페이지당 항목 수 (기본값: 10)
  */
 export async function getArticles(
-  _query: GetArticlesQuery = {}
+  _query: GetArticlesQuery = {},
 ): Promise<ArticleListResponse> {
-  throw new Error("getArticles()가 아직 구현되지 않았습니다");
+  const res = await fetch(ARTICLE_API);
+  const data: ArticleListResponse = await res.json();
+  return data;
 }
 
 /**
@@ -46,13 +48,26 @@ export async function getArticle(_id: string): Promise<Article> {
  * - 응답을 JSON으로 파싱합니다.
  * - 생성된 게시글을 반환합니다.
  */
-export async function createArticle(_data: {
+export async function createArticle(data: {
   title: string;
   content: string;
   author: string;
   category: string;
 }): Promise<Article> {
-  throw new Error("createArticle()이 아직 구현되지 않았습니다");
+  const res = await fetch(ARTICLE_API, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    throw new Error("게시글 생성 실패");
+  }
+
+  const createArticle: Article = await res.json();
+  return createArticle;
 }
 
 /**
@@ -70,7 +85,7 @@ export async function updateArticle(
     content?: string;
     author?: string;
     category?: string;
-  }
+  },
 ): Promise<Article> {
   throw new Error("updateArticle()이 아직 구현되지 않았습니다");
 }

@@ -54,8 +54,15 @@ export async function createArticle(_data: {
   content: string;
   author: string;
   category: string;
-}): Promise<Article> {
-  throw new Error("createArticle()이 아직 구현되지 않았습니다");
+}) {
+  await fetch(ARTICLE_API, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(_data),
+  });
+  // throw new Error("createArticle()이 아직 구현되지 않았습니다");
 }
 
 /**

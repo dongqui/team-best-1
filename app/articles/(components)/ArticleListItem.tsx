@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Article } from "@/types/article";
+import styles from "./ArticleListItem.module.css";
 
 type ArticleListItemProps = {
   article: Article;
@@ -8,14 +9,17 @@ type ArticleListItemProps = {
 export default function ArticleListItem({ article }: ArticleListItemProps) {
   const { id, category, title, author, createdAt } = article;
   return (
-    <Link href={`/articles/${id}`}>
-      <div>{category}</div>
-      <div>{title}</div>
-      <div>
-        {author} | {createdAt}
+    <>
+      <div className={styles.articleCategory}>{category}</div>
+      <div className={styles.articleTitle}>
+        <Link href={`/articles/${id}`} className={styles.article}>
+          {title}
+        </Link>
       </div>
-      {/* TODO: `/articles/${article.id}`로 이동하는 Link를 렌더링하고, 게시글 제목을 표시하세요. */}
-      {/* TODO: 게시글의 createdAt 날짜를 렌더링하세요. */}
-    </Link>
+      <div className={styles.articleAuthorDate}>
+        <span className={styles.articleAuthor}>{author}</span> |{" "}
+        <span className={styles.articleDate}>{createdAt}</span>
+      </div>
+    </>
   );
 }

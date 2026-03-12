@@ -1,0 +1,23 @@
+.articleCategory {
+  font-size: 14px;
+  font-weight: 600;
+}
+.articleTitle a {
+  font-size: 24px;
+  font-weight: 400;
+  text-decoration: none;
+  color: #222;
+}
+
+.articleTitle a:hover {
+  color: #2563eb;
+}
+.articleAuthorDate {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 8px;
+  color: #868686;
+  font-size: 14px;
+}

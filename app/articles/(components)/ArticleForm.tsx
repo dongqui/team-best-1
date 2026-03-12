@@ -1,21 +1,25 @@
 "use client";
-
 import { useState } from "react";
-import { Article } from "@/types/article";
 import styles from "./ArticleForm.module.css";
+import { createArticle } from "@/lib/api/articles";
+import { useRouter } from "next/navigation";
 
 type ArticleFormProps = {
   onSubmit: (data: { title: string; content: string }) => void;
 };
 
 export default function ArticleForm({ onSubmit }: ArticleFormProps) {
-  function handleSubmit(e: React.FormEvent) {
+  const router = useRouter();
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    await createArticle({
+      title: titleValue,
+      content: contentValue,
+      category: categoryValue,
+      author: authorValue,
+    });
+    router.push("/articles");
     // TODO: 현재 title과 content 값을 담아 onSubmit을 호출하세요.
-    console.log("cate", categoryValue);
-    console.log("title", titleValue);
-    console.log("content", contentValue);
-    console.log("author", authorValue);
   }
   const [categoryValue, setCategoryValue] = useState("기술");
   const [titleValue, setTitleValue] = useState("");
@@ -30,10 +34,11 @@ export default function ArticleForm({ onSubmit }: ArticleFormProps) {
           value={categoryValue}
           onChange={(e) => setCategoryValue(e.target.value)}
         >
-          <option value="기술">기술</option>
-          <option value="과학">과학</option>
-          <option value="연예">연예</option>
-          <option value="정치">정치</option>
+          <option value="technology">technology</option>
+          <option value="science">science</option>
+          <option value="culture">culture</option>
+          <option value="sports">sports</option>
+          <option value="economy">economy</option>
         </select>
       </div>
       <div className={styles.titleWrap}>

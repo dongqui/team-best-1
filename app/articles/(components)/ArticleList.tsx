@@ -1,5 +1,6 @@
 import { Article } from "@/types/article";
 import ArticleListItem from "./ArticleListItem";
+import styles from "./ArticleList.module.css";
 
 type ArticleListProps = {
   articles: Article[];
@@ -12,7 +13,7 @@ export default function ArticleList({ articles }: ArticleListProps) {
       {/* 힌트: articles.map((article) => <ArticleListItem key={article.id} article={article} />) */}
       {articles.map((item) => {
         return (
-          <div key={item.id}>
+          <div key={item.id} className={styles.article}>
             <ArticleListItem article={item} />
           </div>
         );

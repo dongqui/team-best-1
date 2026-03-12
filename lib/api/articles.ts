@@ -57,6 +57,7 @@ export async function createArticle(_data: {
   category: string;
 }): Promise<Article> {
   throw new Error("createArticle()이 아직 구현되지 않았습니다");
+  // post 요청하는 로직
 }
 
 /**

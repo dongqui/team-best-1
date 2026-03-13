@@ -44,7 +44,7 @@ export default function EditArticleForm({ onSubmit }: ArticleFormProps) {
         <div className={styles.categoryWrap}>
           <label>카테고리</label>
           <select
-            value={article.category}
+            value={article?.category}
             onChange={(e) => setCategoryValue(e.target.value)}
           >
             <option value="technology">technology</option>
@@ -59,7 +59,7 @@ export default function EditArticleForm({ onSubmit }: ArticleFormProps) {
           <input
             type="text"
             placeholder="제목을 입력해주세요."
-            value={article.title}
+            value={article?.title}
             onChange={(e) => setTitleValue(e.target.value)}
           />
         </div>
@@ -68,7 +68,7 @@ export default function EditArticleForm({ onSubmit }: ArticleFormProps) {
           <label>내용</label>
           <textarea
             placeholder="내용을 입력해주세요."
-            value={article.content}
+            value={article?.content}
             onChange={(e) => setContentValue(e.target.value)}
           />
         </div>
@@ -77,7 +77,7 @@ export default function EditArticleForm({ onSubmit }: ArticleFormProps) {
           <input
             type="text"
             placeholder="글쓴이를 입력해주세요."
-            value={article.author}
+            value={article?.author}
             onChange={(e) => setAuthorValue(e.target.value)}
           />
         </div>

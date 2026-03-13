@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import { createArticle, getArticle } from "@/lib/api/articles";
+import { Article } from "@/types/article";
 import { useParams, useRouter } from "next/navigation";
 import styles from "./page.module.css";
 
@@ -19,6 +20,13 @@ export default function EditArticleForm({ onSubmit }: ArticleFormProps) {
       setArticle(articleDate);
     }
     fetchArticle(id);
+
+    if (article) {
+      setCategoryValue(article?.category);
+      setTitleValue(article?.title);
+      setContentValue(article?.content);
+      setAuthorValue(article?.author);
+    }
   }, [id]);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -44,7 +52,7 @@ export default function EditArticleForm({ onSubmit }: ArticleFormProps) {
         <div className={styles.categoryWrap}>
           <label>카테고리</label>
           <select
-            value={article?.category}
+            value={categoryValue}
             onChange={(e) => setCategoryValue(e.target.value)}
           >
             <option value="technology">technology</option>
@@ -59,7 +67,7 @@ export default function EditArticleForm({ onSubmit }: ArticleFormProps) {
           <input
             type="text"
             placeholder="제목을 입력해주세요."
-            value={article?.title}
+            value={titleValue}
             onChange={(e) => setTitleValue(e.target.value)}
           />
         </div>
@@ -68,7 +76,7 @@ export default function EditArticleForm({ onSubmit }: ArticleFormProps) {
           <label>내용</label>
           <textarea
             placeholder="내용을 입력해주세요."
-            value={article?.content}
+            value={contentValue}
             onChange={(e) => setContentValue(e.target.value)}
           />
         </div>
@@ -77,7 +85,7 @@ export default function EditArticleForm({ onSubmit }: ArticleFormProps) {
           <input
             type="text"
             placeholder="글쓴이를 입력해주세요."
-            value={article?.author}
+            value={authorValue}
             onChange={(e) => setAuthorValue(e.target.value)}
           />
         </div>

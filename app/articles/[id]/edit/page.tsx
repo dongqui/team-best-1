@@ -7,12 +7,23 @@ import styles from "./page.module.css";
 
 type ArticleFormProps = {
   onSubmit: (data: { title: string; content: string }) => void;
+  initialDate?: Article;
 };
 
-export default function EditArticleForm({ onSubmit }: ArticleFormProps) {
+export default function EditArticleForm({
+  onSubmit,
+  initialDate,
+}: ArticleFormProps) {
   const { id } = useParams<{ id: string }>();
   const router = useRouter();
   const [article, setArticle] = useState<Article | null>(null);
+
+  const [categoryValue, setCategoryValue] = useState(
+    initialDate?.category || "",
+  );
+  const [titleValue, setTitleValue] = useState(initialDate?.title || "");
+  const [contentValue, setContentValue] = useState(initialDate?.content || "");
+  const [authorValue, setAuthorValue] = useState(initialDate?.author || "");
 
   useEffect(() => {
     async function fetchArticle(id: string) {
@@ -20,13 +31,6 @@ export default function EditArticleForm({ onSubmit }: ArticleFormProps) {
       setArticle(articleDate);
     }
     fetchArticle(id);
-
-    if (article) {
-      setCategoryValue(article?.category);
-      setTitleValue(article?.title);
-      setContentValue(article?.content);
-      setAuthorValue(article?.author);
-    }
   }, [id]);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -40,10 +44,6 @@ export default function EditArticleForm({ onSubmit }: ArticleFormProps) {
     router.push("/articles");
     // TODO: 현재 title과 content 값을 담아 onSubmit을 호출하세요.
   }
-  const [categoryValue, setCategoryValue] = useState("기술");
-  const [titleValue, setTitleValue] = useState("");
-  const [contentValue, setContentValue] = useState("");
-  const [authorValue, setAuthorValue] = useState("");
 
   return (
     <>

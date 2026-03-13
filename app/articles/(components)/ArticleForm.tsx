@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { Article } from "@/types/article";
+import { createArticle } from "@/lib/api/articles";
+import { useRouter } from "next/navigation";
 
 type ArticleFormProps = {
   onSubmit: (data: { title: string; content: string }) => void;
@@ -12,11 +14,13 @@ export default function ArticleForm({ onSubmit }: ArticleFormProps) {
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
   const [category, setCategory] = useState("");
+  const router = useRouter();
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     // TODO: 현재 title과 content 값을 담아 onSubmit을 호출하세요.
-    
+    createArticle({ title, content, author, category });
+    router.push("/articles");
   }
 
   return (
@@ -65,7 +69,7 @@ export default function ArticleForm({ onSubmit }: ArticleFormProps) {
 
       {/* TODO: 제출(submit) 버튼을 렌더링하세요. */}
       <button type="submit">
-        저장
+        제출
       </button>
     </form>
   );

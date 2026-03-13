@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { createArticle, getArticle } from "@/lib/api/articles";
+import { getArticle, updateArticle } from "@/lib/api/articles";
 import { Article } from "@/types/article";
 import { useParams, useRouter } from "next/navigation";
 import styles from "./page.module.css";
@@ -35,7 +35,7 @@ export default function EditArticleForm({
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    await createArticle({
+    await updateArticle({
       title: titleValue,
       content: contentValue,
       category: categoryValue,

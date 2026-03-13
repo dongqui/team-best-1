@@ -89,7 +89,7 @@ export async function updateArticle(
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(_id),
+    body: JSON.stringify(_data),
   });
 
   throw new Error("updateArticle()이 아직 구현되지 않았습니다");

@@ -14,24 +14,11 @@ export default function ArticleDetailPage() {
   const router = useRouter();
   
   useEffect(() => {
-    // TODO: getArticle(id)를 호출하고, 반환된 결과로 article 상태를 업데이트하세요.
-    async function fetchArticle(id: string) {
-      const articleData = await getArticle(id);
-      setArticle(articleData);
-    }
-
-    fetchArticle(id);
+    
   }, [id]);
 
-  
-
-  async function handleDelete() {
-    // TODO: deleteArticle(id)를 호출해서 게시글을 삭제하세요.
-    // TODO: 삭제 완료 후 router.push("/articles")로 목록 페이지로 이동하세요.
-    if (confirm("게시물을 삭제하시겠습니까?")) {
-      await deleteArticle(id);
-      router.push("/articles");
-    }
+  async function handleUpdate() {
+    
   }
 
   return (

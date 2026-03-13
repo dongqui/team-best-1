@@ -39,7 +39,10 @@ export async function getArticles(
  * - 게시글을 반환합니다.
  */
 export async function getArticle(_id: string): Promise<Article> {
-  throw new Error("getArticle()이 아직 구현되지 않았습니다");
+  const response = await fetch(`${ARTICLE_API}/${_id}`);
+  const data: Article = await response.json();
+
+  return data;
 }
 
 /**
@@ -82,7 +85,15 @@ export async function updateArticle(
     category?: string;
   }
 ): Promise<Article> {
-  throw new Error("updateArticle()이 아직 구현되지 않았습니다");
+  const response = await fetch(`${ARTICLE_API}/${_id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(_data),
+  });
+
+  return await response.json();
 }
 
 /**

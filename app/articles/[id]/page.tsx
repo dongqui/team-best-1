@@ -5,13 +5,13 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Article } from "@/types/article";
 import ArticleForm from "@/app/articles/(components)/ArticleForm";
-import { getArticle } from "@/lib/api/articles";
+import { deleteArticle, getArticle } from "@/lib/api/articles";
 // TODO: import { getArticle, updateArticle, deleteArticle } from "@/lib/api/articles";
 
 export default function ArticleDetailPage() {
   const { id } = useParams<{ id: string }>();
 
-  const [article, setArticle] = useState(null);
+  const [article, setArticle] = useState<Article | null>(null);
 
   useEffect(() => {
     // TODO: getArticle(id)를 호출하고, 반환된 결과로 article 상태를 업데이트하세요.
@@ -28,6 +28,7 @@ export default function ArticleDetailPage() {
   async function handleDelete() {
     // TODO: deleteArticle(id)를 호출해서 게시글을 삭제하세요.
     // TODO: 삭제 완료 후 router.push("/articles")로 목록 페이지로 이동하세요.
+    await deleteArticle(id);
   }
 
   return (
@@ -55,7 +56,11 @@ export default function ArticleDetailPage() {
       </div>
 
       <div>
-        <p></p>
+        <p>{article?.title}</p>
+        <p>{article?.content}</p>
+        <p>{article?.category}</p>
+        <p>{article?.author}</p>
+        <p>{article?.createdAt}</p>
       </div>
     </main>
   );

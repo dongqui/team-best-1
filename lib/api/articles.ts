@@ -97,6 +97,12 @@ export async function updateArticle(
  * - `${ARTICLE_API}/${id}`로 DELETE 요청을 보냅니다.
  * - 반환값은 없습니다.
  */
-export async function deleteArticle(_id: string): Promise<void> {
-  throw new Error("deleteArticle()이 아직 구현되지 않았습니다");
+export async function deleteArticle(id: string): Promise<void> {
+  const res = await fetch(`${ARTICLE_API}/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!res.ok) {
+    throw new Error("게시글 삭제 실패");
+  }
 }

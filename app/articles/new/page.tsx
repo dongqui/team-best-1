@@ -3,14 +3,21 @@
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import ArticleForm from "@/app/articles/(components)/ArticleForm";
-// TODO: import { createArticle } from "@/lib/api/articles";
+import { createArticle } from "@/lib/api/articles";
 
 export default function ArticleCreatePage() {
   const router = useRouter();
 
-  async function handleSubmit(data: { title: string; content: string }) {
+  async function handleSubmit(data: {
+    title: string;
+    content: string;
+    author: string;
+    category: string;
+  }) {
     // TODO: createArticle(data)를 호출해서 새 게시글을 생성하세요.
     // TODO: 생성 완료 후 router.push("/articles")로 목록 페이지로 이동하세요.
+    await createArticle(data);
+    router.push("/articles");
   }
 
   return (

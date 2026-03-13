@@ -5,13 +5,19 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Article } from "@/types/article";
 import ArticleForm from "@/app/articles/(components)/ArticleForm";
+import { getArticle } from "@/lib/api/articles";
 // TODO: import { getArticle, updateArticle, deleteArticle } from "@/lib/api/articles";
 
 export default function ArticleDetailPage() {
   const { id } = useParams<{ id: string }>();
 
+  const [article, setArticle] = useState(null);
+
   useEffect(() => {
     // TODO: getArticle(id)를 호출하고, 반환된 결과로 article 상태를 업데이트하세요.
+    getArticle(id)
+      .then((data) => setArticle(data))
+      .catch((err) => console.error("로딩 실패", err));
   }, [id]);
 
   async function handleUpdate(data: { title: string; content: string }) {
@@ -46,6 +52,10 @@ export default function ArticleDetailPage() {
             삭제
           </button>
         </div>
+      </div>
+
+      <div>
+        <p></p>
       </div>
     </main>
   );

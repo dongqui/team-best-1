@@ -36,8 +36,10 @@ export async function getArticles(
  * - 응답을 JSON으로 파싱합니다.
  * - 게시글을 반환합니다.
  */
-export async function getArticle(_id: string): Promise<Article> {
-  throw new Error("getArticle()이 아직 구현되지 않았습니다");
+export async function getArticle(id: string): Promise<Article> {
+  const res = await fetch(`${ARTICLE_API}/${id}`);
+  const data: Article = await res.json();
+  return data;
 }
 
 /**

@@ -81,15 +81,27 @@ export async function createArticle(data: {
  * - 수정된 게시글을 반환합니다.
  */
 export async function updateArticle(
-  _id: string,
-  _data: {
+  id: string,
+  data: {
     title?: string;
     content?: string;
     author?: string;
     category?: string;
   },
 ): Promise<Article> {
-  throw new Error("updateArticle()이 아직 구현되지 않았습니다");
+  const res = await fetch(`${ARTICLE_API}/${id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) {
+    throw new Error("게시글 생성 실패");
+  }
+
+  const updateArticle: Article = await res.json();
+  return updateArticle;
 }
 
 /**

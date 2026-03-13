@@ -11,6 +11,8 @@ import { deleteArticle, getArticle } from "@/lib/api/articles";
 export default function ArticleDetailPage() {
   const { id } = useParams<{ id: string }>();
 
+  const router = useRouter();
+
   const [article, setArticle] = useState<Article | null>(null);
 
   useEffect(() => {
@@ -29,6 +31,7 @@ export default function ArticleDetailPage() {
     // TODO: deleteArticle(id)를 호출해서 게시글을 삭제하세요.
     // TODO: 삭제 완료 후 router.push("/articles")로 목록 페이지로 이동하세요.
     await deleteArticle(id);
+    router.push("/articles");
   }
 
   return (
@@ -46,9 +49,7 @@ export default function ArticleDetailPage() {
         </Link>
 
         <div className="flex gap-2">
-          <button type="button" onClick={handleDelete}>
-            수정
-          </button>
+          <Link href={`/articles/${id}/edit`}>수정</Link>
           <button type="button" onClick={handleDelete}>
             삭제
           </button>

@@ -5,7 +5,6 @@ import { getArticles } from "@/lib/api/articles";
 
 export default async function ArticleListPage() {
   const articlesList = await getArticles();
-  console.log("articles", articlesList);
   const articles = articlesList.articles;
   // TODO: getArticles()를 호출하고, 반환된 결과로 articles 상태를 업데이트하세요.
   // 예시:

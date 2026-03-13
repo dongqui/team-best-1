@@ -93,5 +93,9 @@ export async function updateArticle(
  * - 반환값은 없습니다.
  */
 export async function deleteArticle(_id: string): Promise<void> {
-  throw new Error("deleteArticle()이 아직 구현되지 않았습니다");
+  await fetch(ARTICLE_API, {
+    method: "DELETE",
+    body: JSON.stringify(_id),
+  });
+  // throw new Error("deleteArticle()이 아직 구현되지 않았습니다");
 }

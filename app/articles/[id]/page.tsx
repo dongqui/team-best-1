@@ -6,21 +6,22 @@ import Link from "next/link";
 import { Article } from "@/types/article";
 import ArticleForm from "@/app/articles/(components)/ArticleForm";
 
-import { getArticle } from "@/lib/api/articles";
+import { getArticle, deleteArticle, updateArticle } from "@/lib/api/articles";
 // TODO: import { getArticle, updateArticle, deleteArticle } from "@/lib/api/articles";
 
 export default function ArticleDetailPage() {
   const { id } = useParams<{ id: string }>();
+  const router = useRouter();
 
-  const [article, setArticle] = useState({});
+  const [article, setArticle] = useState<Article | null>(null);
 
   useEffect(() => {
     // TODO: getArticle(id)를 호출하고, 반환된 결과로 article 상태를 업데이트하세요.
-    async function getArticle(id) {
-      const articleFetch = await getArticle(id);
-      console.log("article", article);
-      setArticle(articleFetch);
+    async function fetchArticle(id: string) {
+      const articleDate = await getArticle(id);
+      setArticle(articleDate);
     }
+    fetchArticle(id);
   }, [id]);
 
   async function handleUpdate(data: { title: string; content: string }) {
@@ -31,6 +32,8 @@ export default function ArticleDetailPage() {
   async function handleDelete() {
     // TODO: deleteArticle(id)를 호출해서 게시글을 삭제하세요.
     // TODO: 삭제 완료 후 router.push("/articles")로 목록 페이지로 이동하세요.
+    await deleteArticle(id);
+    router.push("/articles");
   }
 
   return (
@@ -56,7 +59,14 @@ export default function ArticleDetailPage() {
           </button>
         </div>
       </div>
-      <div>{/* <h2>{article}</h2> */}</div>
+      <div>
+        <p>{article?.category}</p>
+        <h2>{article?.title}</h2>
+        <p>
+          {article?.author} | {article?.createdAt}
+        </p>
+        <p>{article?.content}</p>
+      </div>
     </main>
   );
 }

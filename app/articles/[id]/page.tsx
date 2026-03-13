@@ -5,13 +5,22 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Article } from "@/types/article";
 import ArticleForm from "@/app/articles/(components)/ArticleForm";
+
+import { getArticle } from "@/lib/api/articles";
 // TODO: import { getArticle, updateArticle, deleteArticle } from "@/lib/api/articles";
 
 export default function ArticleDetailPage() {
   const { id } = useParams<{ id: string }>();
 
+  const [article, setArticle] = useState({});
+
   useEffect(() => {
     // TODO: getArticle(id)를 호출하고, 반환된 결과로 article 상태를 업데이트하세요.
+    async function getArticle(id) {
+      const articleFetch = await getArticle(id);
+      console.log("article", article);
+      setArticle(articleFetch);
+    }
   }, [id]);
 
   async function handleUpdate(data: { title: string; content: string }) {
@@ -47,6 +56,7 @@ export default function ArticleDetailPage() {
           </button>
         </div>
       </div>
+      <div>{/* <h2>{article}</h2> */}</div>
     </main>
   );
 }

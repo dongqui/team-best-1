@@ -38,7 +38,9 @@ export async function getArticles(
  * - 게시글을 반환합니다.
  */
 export async function getArticle(_id: string): Promise<Article> {
-  throw new Error("getArticle()이 아직 구현되지 않았습니다");
+  // throw new Error("getArticle()이 아직 구현되지 않았습니다");
+  const res = await fetch(`http://localhost:3000/${ARTICLE_API}/${_id}`);
+  return res.json();
 }
 
 /**

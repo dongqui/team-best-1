@@ -84,6 +84,14 @@ export async function updateArticle(
     category?: string;
   },
 ): Promise<Article> {
+  await fetch(`${ARTICLE_API}/${_id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(_id),
+  });
+
   throw new Error("updateArticle()이 아직 구현되지 않았습니다");
 }
 

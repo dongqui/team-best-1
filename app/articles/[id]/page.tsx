@@ -51,9 +51,9 @@ export default function ArticleDetailPage() {
         </Link>
 
         <div className="flex gap-2">
-          <button type="button" onClick={handleDelete}>
+          <Link type="button" href={`./${id}/edit`}>
             수정
-          </button>
+          </Link>
           <button type="button" onClick={handleDelete}>
             삭제
           </button>

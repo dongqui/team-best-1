@@ -23,9 +23,21 @@ export const ARTICLE_API = "/api/articles";
  *   pageSize  - 페이지당 항목 수 (기본값: 10)
  */
 export async function getArticles(
-  _query: GetArticlesQuery = {}
+  query: GetArticlesQuery = {}
 ): Promise<ArticleListResponse> {
-  throw new Error("getArticles()가 아직 구현되지 않았습니다");
+  const params = new URLSearchParams();
+  if (query.keyword) params.append("keyword", query.keyword);
+  if (query.category) params.append("category", query.category);
+  if (query.orderBy) params.append("orderBy", query.orderBy);
+  if (query.order) params.append("order", query.order);
+  if (query.page) params.append("page", query.page.toString());
+  if (query.pageSize) params.append("pageSize", query.pageSize.toString());
+
+  const queryString = params.toString() ? `?${params.toString()}` : "";
+  const res = await fetch(`${ARTICLE_API}${queryString}`);
+
+  if (!res.ok) throw new Error("getArticles()가 아직 구현되지 않았습니다");
+  return res.json();
 }
 
 /**
@@ -34,8 +46,10 @@ export async function getArticles(
  * - 응답을 JSON으로 파싱합니다.
  * - 게시글을 반환합니다.
  */
-export async function getArticle(_id: string): Promise<Article> {
-  throw new Error("getArticle()이 아직 구현되지 않았습니다");
+export async function getArticle( id: string): Promise<Article> {
+  const res = await fetch(`${ARTICLE_API}/${id}`);
+  if (!res.ok) throw new Error("getArticle()이 아직 구현되지 않았습니다");
+  return res.json();
 }
 
 /**
@@ -46,13 +60,19 @@ export async function getArticle(_id: string): Promise<Article> {
  * - 응답을 JSON으로 파싱합니다.
  * - 생성된 게시글을 반환합니다.
  */
-export async function createArticle(_data: {
+export async function createArticle( data: {
   title: string;
   content: string;
   author: string;
   category: string;
 }): Promise<Article> {
-  throw new Error("createArticle()이 아직 구현되지 않았습니다");
+  const res = await fetch(ARTICLE_API, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw new Error("createArticle()이 아직 구현되지 않았습니다");
+  return res.json();
 }
 
 /**
@@ -64,15 +84,21 @@ export async function createArticle(_data: {
  * - 수정된 게시글을 반환합니다.
  */
 export async function updateArticle(
-  _id: string,
-  _data: {
+  id: string,
+  data: {
     title?: string;
     content?: string;
     author?: string;
     category?: string;
   }
 ): Promise<Article> {
-  throw new Error("updateArticle()이 아직 구현되지 않았습니다");
+  const res = await fetch(`${ARTICLE_API}/${id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+  if (!res.ok) throw new Error("updateArticle()이 아직 구현되지 않았습니다");
+  return res.json();
 }
 
 /**
@@ -80,6 +106,10 @@ export async function updateArticle(
  * - `${ARTICLE_API}/${id}`로 DELETE 요청을 보냅니다.
  * - 반환값은 없습니다.
  */
-export async function deleteArticle(_id: string): Promise<void> {
+export async function deleteArticle(id: string): Promise<void> {
+  const res = await fetch(`${ARTICLE_API}/${id}`, {
+    method: "DELETE",
+  });
+  if (!res.ok)
   throw new Error("deleteArticle()이 아직 구현되지 않았습니다");
 }

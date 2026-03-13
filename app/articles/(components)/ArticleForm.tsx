@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Article } from "@/types/article";
 
 type ArticleFormProps = {
-  onSubmit: (data: { title: string; content: string }) => void;
+  onSubmit: (data: { title: string; content: string;author: string; category: string }) => void;
 };
 
 export default function ArticleForm({ onSubmit }: ArticleFormProps) {

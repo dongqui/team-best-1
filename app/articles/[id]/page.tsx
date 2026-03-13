@@ -5,14 +5,13 @@ import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Article } from "@/types/article";
 import ArticleForm from "@/app/articles/(components)/ArticleForm";
+import { deleteArticle, getArticle } from "@/lib/api/articles";
 // TODO: import { getArticle, updateArticle, deleteArticle } from "@/lib/api/articles";
 
 export default function ArticleDetailPage() {
   const { id } = useParams<{ id: string }>();
-
-  useEffect(() => {
-    // TODO: getArticle(id)를 호출하고, 반환된 결과로 article 상태를 업데이트하세요.
-  }, [id]);
+  const router = useRouter();
+  
 
   async function handleUpdate(data: { title: string; content: string }) {
     // TODO: updateArticle(id, data)를 호출해서 게시글을 수정하세요.
@@ -22,6 +21,10 @@ export default function ArticleDetailPage() {
   async function handleDelete() {
     // TODO: deleteArticle(id)를 호출해서 게시글을 삭제하세요.
     // TODO: 삭제 완료 후 router.push("/articles")로 목록 페이지로 이동하세요.
+    if (confirm("게시물을 삭제하시겠습니까?")) {
+      await deleteArticle(id);
+      router.push("/articles");
+    }
   }
 
   return (
@@ -37,6 +40,12 @@ export default function ArticleDetailPage() {
         <Link href="/articles" style={{ fontSize: "0.9rem" }}>
           ← 목록으로
         </Link>
+        
+        {/* <div>{article?.title}</div>
+        <div>{article?.content}</div>
+        <div>{article?.author}</div>
+        <div>{article?.category}</div>
+        <div>{article?.createdAt}</div> */}
 
         <div className="flex gap-2">
           <button type="button" onClick={handleDelete}>

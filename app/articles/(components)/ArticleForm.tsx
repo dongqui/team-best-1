@@ -13,7 +13,7 @@ export default function ArticleForm({ onSubmit }: ArticleFormProps) {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [author, setAuthor] = useState("");
-  const [category, setCategory] = useState("");
+  const [category, setCategory] = useState("free");
   const router = useRouter();
 
   function handleSubmit(e: React.FormEvent) {
@@ -64,7 +64,11 @@ export default function ArticleForm({ onSubmit }: ArticleFormProps) {
           id="category"
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-        />
+        >
+          <option value="">카테고리 선택</option>
+          <option value="free">자유 게시판</option>
+          <option value="notice">공지사항</option>
+        </select>
       </div>
 
       {/* TODO: 제출(submit) 버튼을 렌더링하세요. */}
